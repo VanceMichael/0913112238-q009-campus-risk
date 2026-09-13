@@ -1,8 +1,8 @@
 FROM golang:1.22-alpine AS build
 WORKDIR /src
 COPY go.mod ./
-RUN go mod download
 COPY main.go ./
+RUN go mod tidy
 RUN go build -o /out/service .
 FROM alpine:3.20
 COPY --from=build /out/service /service
